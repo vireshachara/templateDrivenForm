@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="card">
+        <div class="main"><strong>Registration Form</strong></div>
+        <!-- <form class="card1" (ngSubmit)="onSubmit(myForm)" #myForm="ngForm"> By passing local reference value -->
+
+        <form class="card1" (ngSubmit)="onSubmit()" #myForm="ngForm"> <!--By using @ViewChild method-->
+            <div ngModelGroup="personalDetails" #personalDetails="ngModelGroup"> <!--By using FormGroup -->
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="Enter First Name" name="firstname" ngModel required
+                    #fname="ngModel">
+                <small *ngIf="fname.invalid && fname.touched">First Name is required field</small><br>
+                <span class="small" *ngIf="firstname">You have entered : {{firstname}}</span><br>
+
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" placeholder="Enter Last Name" name="lastname" ngModel required
+                    #lname="ngModel">
+                <small *ngIf="lname.invalid && lname.touched">Last Name is required field</small><br>
+                <span class="small" *ngIf="lastname">You have entered : {{lastname}}</span><br>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter Email" name="email" ngModel required email>
+
+                <div *ngIf="personalDetails.invalid && personalDetails.touched"> By using FormGroup
+                    <small>Some of the required fields are does not have valid values!</small>
+                </div>
+                <button (click)="setDefaultValues()">Set Default Values</button>
+            </div>
+            <br>
+
+            <label for="country">Country</label>
+            <select id="country" name="country" [(ngModel)]="defaultCountry" required>
+                <option value="india">India</option>
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="china">China</option>
+                <option value="america">America</option>
+            </select>
+
+            <label for="gender">Gender</label>
+            <span *ngFor="let gen of gender">
+                <input class="radiobutton" type="radio" id="{{gen.id}}" value="{{gen.value}}" name="gender"
+                    [(ngModel)]="defaultGender">
+                <label for="gender">{{gen.value}}</label>
+            </span>
+
+            <div>
+                <label for="hobbies">Hobbies <i>(Optional)</i></label>
+                <div>
+                    <label><input type="checkbox" value="sports" name="hobbies" ngModel>Sports</label>
+                    <label><input type="checkbox" value="movies" name="hobbies" ngModel>Movies</label>
+                    <label><input type="checkbox" value="music" name="hobbies" ngModel>Music</label>
+                    <label><input type="checkbox" value="singing" name="hobbies" ngModel>Singing</label>
+                </div>
+            </div>
+            <input type="submit" value="Submit" id="submit" [disabled]="!myForm.valid">
+        </form>
+    </div>
+    <div class="div2">
+        <h4>FirstName : {{firstname}}</h4>
+        <h4>Lastname : {{lastname}}</h4>
+        <h4>Email : {{email}}</h4>
+        <h4>Country : {{country}}</h4>
+        <h4>Gender : {{Gender}}</h4>
+        <h4>Hobbies : {{hobbies}}</h4>
+    </div>
+</div>
